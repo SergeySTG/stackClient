@@ -1,0 +1,8 @@
+{
+  "name": "stackClient",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/SergeySTG/stackClient.git",
+  "author": "Sergey Novgorodtsev <gray9064@gmail.com>",
+  "license": "MIT"
+}
