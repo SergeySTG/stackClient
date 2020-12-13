@@ -9,3 +9,5 @@ export interface IChildrenComponent {
 }
 
 export type Link = string;
+
+export type UnixDate = number;

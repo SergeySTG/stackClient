@@ -1,4 +1,4 @@
-const API_URL = 'https://api.stackexchange.com/2.2/';
+const API_URL = 'https://api.stackexchange.com/2.2';
 
 export const EndPoints = {
   search: `${API_URL}/search`,
