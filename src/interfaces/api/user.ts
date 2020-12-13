@@ -9,11 +9,11 @@ export enum UserTypes {
 }
 
 export interface IUser {
-  accept_rate: number;
-  display_name: string;
-  link: Link;
-  profile_image: string;
-  reputation: number;
-  user_id: number;
-  user_type: UserTypes;
+  accept_rate?: number;
+  display_name?: string;
+  link?: Link;
+  profile_image?: string;
+  reputation?: number;
+  user_id?: number;
+  user_type?: UserTypes;
 }
