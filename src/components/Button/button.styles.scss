@@ -1,0 +1,12 @@
+@import 'styles/mixins';
+
+.btn {
+  @include title-text;
+  @include border;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+  min-height: 50px;
+  min-width: 150px;
+}

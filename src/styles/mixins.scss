@@ -1,0 +1,21 @@
+@import './variables';
+
+@mixin normal-text {
+  font-size: $font-size-normal;
+  font-weight: normal;
+}
+
+@mixin header-text {
+  font-size: $font-size-header;
+  font-weight: bold;
+}
+
+@mixin title-text {
+  font-size: $font-size-title;
+  font-weight: bold;
+}
+
+@mixin border {
+  border: $border-type $border-width $gray65;
+  border-radius: $border-radius;
+}
