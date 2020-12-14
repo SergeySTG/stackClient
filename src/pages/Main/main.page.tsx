@@ -3,13 +3,13 @@ import 'pages/Main/main.styles.scss';
 import { Link } from 'react-router-dom';
 import { Routes } from 'constants/routes';
 import { Button } from 'components/Button/button.component';
-import { search } from 'api/search/search';
+import { searchQuestions } from 'api/search/search';
 
 export const MainPage: FC = (): ReactElement => {
   const onClickHandler = () => {
-    search({
+    searchQuestions({
       intitle: 'Hello world',
-    });
+    }).then((res) => console.log(res));
   };
   return (
     <div className="main-page">

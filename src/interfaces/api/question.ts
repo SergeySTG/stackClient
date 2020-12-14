@@ -1,8 +1,8 @@
-import { IUser } from 'interfaces/api/user';
+import { IUserAPI } from 'interfaces/api/user';
 import { Link, UnixDate } from 'interfaces/common';
 
 // API from https://api.stackexchange.com/docs/types/question;
-export interface IQuestion {
+export interface IQuestionAPI {
   accepted_answer_id?: number;
   answer_count: number;
   bounty_amount?: number;
@@ -17,7 +17,7 @@ export interface IQuestion {
   last_edit_date?: UnixDate;
   link: Link;
   locked_date?: UnixDate;
-  owner: IUser;
+  owner: IUserAPI;
   protected_date?: UnixDate;
   question_id: number;
   score: number;

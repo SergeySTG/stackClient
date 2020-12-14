@@ -8,7 +8,7 @@ export enum UserTypes {
   does_not_exist = 'does_not_exist',
 }
 
-export interface IUser {
+export interface IUserAPI {
   accept_rate?: number;
   display_name?: string;
   link?: Link;

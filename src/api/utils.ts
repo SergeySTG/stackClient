@@ -1,11 +1,11 @@
-import { IFilter } from 'interfaces/api';
-import { DefaultFilter } from 'constants/filter';
+import { IFilterAPI } from 'interfaces/api';
+import { DefaultFilterAPI } from 'constants/filters';
 
 /**
  * Generate url search string from object
  * @param filter
  */
-export const filterToString = (filter: { [key: string]: unknown }): string => {
+const filterToString = (filter: { [key: string]: unknown }): string => {
   const entries: [string, string][] = Object.entries(filter)
     .filter(([, value]: [string, unknown]): boolean =>
       ['string', 'number'].includes(typeof value)
@@ -21,9 +21,9 @@ export const filterToString = (filter: { [key: string]: unknown }): string => {
   return urlSearch.toString();
 };
 
-export const getSearchFilter = (filter: Partial<IFilter>): string => {
+const getFetchFilter = (filter: Partial<IFilterAPI>): string => {
   return filterToString({
-    ...DefaultFilter,
+    ...DefaultFilterAPI,
     ...filter,
   });
 };
@@ -31,18 +31,15 @@ export const getSearchFilter = (filter: Partial<IFilter>): string => {
 // I could use axios lib but It is prohibited in this test project p.4
 export const fetchData = async <T>(
   endPoint: string,
-  filter: Partial<IFilter>
+  filter: Partial<IFilterAPI>
 ): Promise<T | null> => {
-  const search = getSearchFilter(filter);
+  const search = getFetchFilter(filter);
 
-  try {
-    const response: Response = await fetch(`${endPoint}?${search}`);
+  const response: Response = await fetch(`${endPoint}?${search}`);
 
-    return (await response.json()) as T;
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error(e);
+  if (response.status !== 200) {
+    return null; // throw error
   }
 
-  return null;
+  return (await response.json()) as T;
 };

@@ -1,11 +1,6 @@
-import { IFilter, IResponse } from 'interfaces/api';
-import { IQuestion } from 'interfaces/api/question';
+import { IFilterAPI } from 'interfaces/api';
 
-export interface ISearchFilter extends Partial<IFilter> {
+export interface ISearchFilter extends Partial<IFilterAPI> {
   intitle: string;
   tagged?: string[];
-}
-
-export interface ISearchResponse extends IResponse {
-  items: IQuestion[];
 }
