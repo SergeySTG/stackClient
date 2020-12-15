@@ -40,7 +40,6 @@ export class Response<T> {
 
     if (instance.hasMore) {
       instance.getMore = (): Promise<Response<Q>> => {
-        console.log('next page', (instance.page || 1) + 1);
         return Response.createInstancePagination<Q, D>(
           fetch,
           getItems,

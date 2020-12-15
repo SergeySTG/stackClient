@@ -1,10 +1,10 @@
 import SearchActions, { SearchActionTypes } from 'store/search/search.actions';
-import { put, call, takeLatest, takeEvery, select } from 'redux-saga/effects';
+import { put, call, takeLatest, select } from 'redux-saga/effects';
 import { AnyAction } from 'redux';
 import { searchQuestions } from 'api/search/search';
 import { Response } from 'models/Response';
 import { Question } from 'models/Question';
-import { RootState } from 'store/store.types';
+import { searchSelector } from 'store/search/search.selectors';
 
 function* searchTitle(action: AnyAction): Generator {
   const { title } = action;
@@ -34,12 +34,8 @@ function* searchTag(action: AnyAction): Generator {
   yield put;
 }
 
-const getState = (state: RootState): Response<Question> | null => {
-  return state.search?.result || null;
-};
-
 function* getMore(): Generator {
-  const state = (yield select(getState)) as Response<Question>;
+  const state = (yield select(searchSelector)) as Response<Question>;
 
   if (state && state.getMore) {
     try {
