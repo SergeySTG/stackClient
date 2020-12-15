@@ -5,6 +5,7 @@ import { searchQuestions } from 'api/search/search';
 import { Response } from 'models/Response';
 import { Question } from 'models/Question';
 import { searchSelector } from 'store/search/search.selectors';
+import { SearchState } from 'store/search/search.initial-state';
 
 function* searchTitle(action: AnyAction): Generator {
   const { title } = action;
@@ -35,13 +36,14 @@ function* searchTag(action: AnyAction): Generator {
 }
 
 function* getMore(): Generator {
-  const state = (yield select(searchSelector)) as Response<Question>;
+  const state = (yield select(searchSelector)) as SearchState;
+  const response = state?.result;
 
-  if (state && state.getMore) {
+  if (response && response.getMore) {
     try {
-      const response = yield call(state.getMore);
+      const newResponse = yield call(response.getMore);
 
-      yield put(SearchActions.putMoreResult(response as Response<Question>));
+      yield put(SearchActions.putMoreResult(newResponse as Response<Question>));
     } catch (e) {
       yield put(SearchActions.putSearchError());
     }
