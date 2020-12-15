@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import action from 'store/action/action.reducer';
+import search from 'store/search/search.reducer';
 
 export default combineReducers({
-  action,
+  search,
 });

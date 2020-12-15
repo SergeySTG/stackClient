@@ -32,13 +32,13 @@ const getFetchFilter = (filter: Partial<IFilterAPI>): string => {
 export const fetchData = async <T>(
   endPoint: string,
   filter: Partial<IFilterAPI>
-): Promise<T | null> => {
+): Promise<T> => {
   const search = getFetchFilter(filter);
 
   const response: Response = await fetch(`${endPoint}?${search}`);
 
   if (response.status !== 200) {
-    return null; // throw error
+    throw new Error('Something was wrong');
   }
 
   return (await response.json()) as T;

@@ -11,3 +11,9 @@ export interface IChildrenComponent {
 export type Link = string;
 
 export type UnixDate = number;
+
+export interface IStateResponse<T> {
+  result: T | null;
+  isLoading: boolean;
+  isError: boolean;
+}

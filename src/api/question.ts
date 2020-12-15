@@ -10,7 +10,7 @@ import { Answer } from 'models/Answer';
 const fetchAnswers = (
   questionId: string,
   filter?: Partial<IFilterAPI>
-): Promise<IResponseAPI<IAnswerAPI> | null> => {
+): Promise<IResponseAPI<IAnswerAPI>> => {
   return fetchData<IResponseAPI<IAnswerAPI>>(
     EndPoints.questions.answers(questionId),
     {
@@ -24,7 +24,7 @@ const fetchAnswers = (
 export const getAnswersByQuestion = async (
   questionId: string,
   filter?: Partial<IFilterAPI>
-): Promise<Response<Answer> | null> => {
+): Promise<Response<Answer>> => {
   return Response.createInstancePagination<Answer, IAnswerAPI>(
     (page: number) =>
       fetchAnswers(questionId, {

@@ -31,20 +31,16 @@ export class Response<T> {
   }
 
   static async createInstancePagination<Q, D>(
-    fetch: (page: number) => Promise<IResponseAPI<D> | null>,
+    fetch: (page: number) => Promise<IResponseAPI<D>>,
     getItems: (items: D[]) => Q[],
     currentPage = 1
-  ): Promise<Response<Q> | null> {
+  ): Promise<Response<Q>> {
     const apiResponse = await fetch(currentPage);
-
-    if (!apiResponse) {
-      return null;
-    }
-
     const instance = Response.createInstance<Q, D>(getItems, apiResponse);
 
     if (instance.hasMore) {
-      instance.getMore = (): Promise<Response<Q> | null> => {
+      instance.getMore = (): Promise<Response<Q>> => {
+        console.log('next page', (instance.page || 1) + 1);
         return Response.createInstancePagination<Q, D>(
           fetch,
           getItems,

@@ -1,5 +1,5 @@
-import { StoreType } from './store.types';
+import { RootState } from './store.types';
 
-export const initialState: StoreType = {};
+export const initialState: RootState = {};
 
 export default initialState;

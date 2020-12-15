@@ -10,7 +10,7 @@ import { IQuestionAPI } from 'interfaces/api/question';
 const fetchQuestions = (
   userId: string,
   filter?: Partial<IFilterAPI>
-): Promise<IResponseAPI<IQuestionAPI> | null> => {
+): Promise<IResponseAPI<IQuestionAPI>> => {
   return fetchData<IResponseAPI<IQuestionAPI>>(
     EndPoints.users.questions(userId),
     {
@@ -24,7 +24,7 @@ const fetchQuestions = (
 export const getQuestionByUser = async (
   userId: string,
   filter?: Partial<IFilterAPI>
-): Promise<Response<Question> | null> => {
+): Promise<Response<Question>> => {
   return Response.createInstancePagination<Question, IQuestionAPI>(
     (page: number) =>
       fetchQuestions(userId, {

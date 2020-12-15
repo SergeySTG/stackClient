@@ -1,2 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-types
-export type StoreType = {};
+import { SearchState } from 'store/search/search.initial-state';
+
+export type RootState = {
+  search?: SearchState;
+};

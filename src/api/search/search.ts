@@ -9,14 +9,14 @@ import { IResponseAPI } from 'interfaces/api';
 // returns result from api as is
 export const search = (
   filter: ISearchFilter
-): Promise<IResponseAPI<IQuestionAPI> | null> => {
-  return fetchData<IResponseAPI<IQuestionAPI>>(EndPoints.search, filter);
+): Promise<IResponseAPI<IQuestionAPI>> => {
+  return fetchData<IResponseAPI<IQuestionAPI>>(`${EndPoints.search}`, filter);
 };
 
 // returns result from api as list of questions
 export const searchQuestions = async (
   filter: ISearchFilter
-): Promise<Response<Question> | null> => {
+): Promise<Response<Question>> => {
   return Response.createInstancePagination<Question, IQuestionAPI>(
     (page: number) =>
       search({
