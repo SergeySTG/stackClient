@@ -15,6 +15,10 @@ export class Question {
 
   public owner: Author;
 
+  public score: number;
+
+  public viewCount: number;
+
   public id: number;
 
   constructor(initializer?: Question) {
@@ -23,6 +27,8 @@ export class Question {
     this.tags = initializer?.tags || [];
     this.owner = new Author(initializer?.owner);
     this.id = initializer?.id || 0;
+    this.score = 0;
+    this.viewCount = 0;
   }
 
   static createInstance(model: IQuestionAPI): Question {
@@ -33,6 +39,8 @@ export class Question {
     instance.tags = model.tags;
     instance.owner = Author.createInstance(model.owner);
     instance.id = model.question_id;
+    instance.score = model.score;
+    instance.viewCount = model.view_count;
 
     return instance;
   }

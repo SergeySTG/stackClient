@@ -8,7 +8,7 @@ export enum FiltersAPI {
 
 export const DefaultFilterAPI: IFilterAPI = {
   site: 'stackoverflow',
-  sort: SortAPI.activity,
+  sort: SortAPI.votes,
   order: OrderAPI.desc,
   page: 1,
   pagesize: 50,

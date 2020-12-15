@@ -4,7 +4,7 @@ export const EndPoints = {
   search: `${API_URL}/search`,
   questions: {
     base: `${API_URL}/questions`,
-    answers(questionId: number): string {
+    answers(questionId: string): string {
       return `${this.base}/${questionId}/answers`;
     },
   },
