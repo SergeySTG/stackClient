@@ -1,4 +1,4 @@
-import { IRoute } from 'routes/route.types';
+import { IRoute } from 'router/route.types';
 import { MainPage } from 'pages/Main/main.page';
 import { Routes } from 'constants/routes';
 import { SearchPage } from 'pages/Search/search.page';
@@ -10,7 +10,7 @@ export const Routers: IRoute[] = [
     page: MainPage,
   },
   {
-    path: Routes.search,
+    path: Routes.search.base,
     page: SearchPage,
   },
   {

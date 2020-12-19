@@ -6,5 +6,9 @@ export const MainLayout: FC<ISimpleLayoutProps> = (
   props: ISimpleLayoutProps
 ): ReactElement<ISimpleLayoutProps> => {
   const { children } = props;
-  return <div className="simple-layout">{children}</div>;
+  return (
+    <div className="simple-layout">
+      <div className="simple-wrapper">{children}</div>
+    </div>
+  );
 };

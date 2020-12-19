@@ -1,4 +1,4 @@
-import { IRoute } from 'routes/route.types';
+import { IRoute } from 'router/route.types';
 
 export interface IRoutersProps {
   routers: IRoute[];

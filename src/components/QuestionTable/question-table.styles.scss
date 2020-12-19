@@ -1,0 +1,12 @@
+@import 'styles/mixins';
+
+.question-table {
+  .tag-container {
+    margin: 3px;
+  }
+
+  a {
+    @include linkColor;
+    color: inherit;
+  }
+}

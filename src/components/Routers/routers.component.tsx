@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 import { IRoutersProps } from 'components/Routers/routers.types';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { IRoute } from 'routes/route.types';
+import { IRoute } from 'router/route.types';
 import { MainLayout } from 'layouts/Main/main.layout';
 
 const createRoute = (route: IRoute): JSX.Element => {

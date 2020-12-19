@@ -1,0 +1,28 @@
+@import 'styles/mixins';
+@import 'styles/variables';
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+
+  .input {
+    @include border;
+    text-align: start;
+    color: $mainColor;
+    width: 100%;
+    height: 40px;
+    padding: 0 10px;
+
+    &.error {
+      border-color: $red;
+    }
+  }
+
+  span {
+    color: $red;
+    text-align: start;
+    white-space: pre-wrap;
+    margin-top: 10px;
+    width: 100%;
+  }
+}

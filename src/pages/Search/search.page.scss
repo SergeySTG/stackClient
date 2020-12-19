@@ -1,0 +1,25 @@
+@import 'styles/mixins';
+@import 'styles/variables';
+
+.search-page {
+  width: 100%;
+  height: 100%;
+  > * {
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    @include title-text;
+    width: 100%;
+    text-align: center;
+  }
+
+  .subheader {
+    @include header-text;
+
+    span {
+      @include normal-text;
+      font-style: italic;
+    }
+  }
+}

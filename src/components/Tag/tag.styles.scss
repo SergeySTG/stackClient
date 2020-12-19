@@ -1,0 +1,10 @@
+@import "styles/mixins";
+@import "styles/variables";
+
+.tag-container {
+  @include border;
+  @include focusBackground($gray85, $lightBlue);
+  @include hoverBackground($gray85, $brightBlue);
+  cursor: pointer;
+  padding: 3px 5px;
+}

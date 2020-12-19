@@ -5,7 +5,7 @@ import './button.styles.scss';
 export const Button: FC<IButtonProps> = (
   props: IButtonProps
 ): ReactElement<IButtonProps> => {
-  const { onClick, disabled, className, children } = props;
+  const { onClick, disabled, className = '', children } = props;
   // I could use clsx library, but it is prohibited in this test project p.4
   const classNames = `btn ${className}`;
 
@@ -14,6 +14,7 @@ export const Button: FC<IButtonProps> = (
       className={classNames}
       disabled={disabled}
       type="button"
+      tabIndex={0}
       onClick={onClick}
     >
       {children}

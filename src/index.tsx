@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import initialState from 'store/initialState';
+import initialState from 'store/initial-state';
 import createStore from 'store';
 import { BrowserRouter } from 'react-router-dom';
 import { App } from 'components/App/app.component';
