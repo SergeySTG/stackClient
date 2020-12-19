@@ -5,7 +5,7 @@
 .question-modal-background {
   @include blur;
   display: flex;
-  background: $blue-transparent;
+  background: $gray-transparent;
   position: fixed;
   top: 0;
   left: 0;
