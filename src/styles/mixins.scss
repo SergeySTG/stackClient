@@ -15,9 +15,9 @@
   font-weight: bold;
 }
 
-@mixin border {
+@mixin border($radius: $border-radius) {
   border: $border-type $border-width $gray65;
-  border-radius: $border-radius;
+  border-radius: $radius;
 }
 
 @mixin error {
@@ -59,6 +59,10 @@
 }
 
 
-@mixin shadow($color: #000) {
+@mixin shadow($color: $mainColor) {
   box-shadow: 0 1px 3px 0 $color;
+}
+
+@mixin shadow-modal() {
+  box-shadow: 5px 5px 6px 0 $shadow-color;
 }

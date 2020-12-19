@@ -1,11 +1,12 @@
 import { ITableBody, Item } from 'components/Table/Body/body.types';
 import React, { ReactElement } from 'react';
 import { Row } from 'components/Table/Body/Row/row.component';
+import { Preloader } from 'components/Preloader/preloader.component';
 
 export const Body = <T extends Item>(
   props: ITableBody<T>
 ): ReactElement<ITableBody<T>> => {
-  const { items, columns } = props;
+  const { items, columns, isItemLoading } = props;
 
   return (
     <tbody>
@@ -19,6 +20,15 @@ export const Body = <T extends Item>(
             />
           )
         )}
+      {isItemLoading && (
+        <tr>
+          <td colSpan={columns.length}>
+            <div className="loader">
+              <Preloader />
+            </div>
+          </td>
+        </tr>
+      )}
     </tbody>
   );
 };

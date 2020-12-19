@@ -1,49 +1,52 @@
-import { initialState, SearchState } from 'store/search/search.initial-state';
+import {
+  initialState,
+  QuestionState,
+} from 'store/question/question.initial-state';
 import { createReducer } from 'store/utils/createReducer';
-import { SearchActionTypes } from 'store/search/search.actions';
+import { QuestionActionTypes } from 'store/question/question.actions';
 import { AnyAction } from 'redux';
 
 const reducers = {
-  [SearchActionTypes.SEARCH_BY_TITLE]: (
-    state: SearchState,
+  [QuestionActionTypes.SEARCH]: (
+    state: QuestionState,
     action: AnyAction
-  ): SearchState => {
-    const { title } = action;
+  ): QuestionState => {
+    const { id } = action;
 
-    if (title && title === state.title) {
+    if (id && id === state.id) {
       return state;
     }
 
     return {
-      title: title || '',
+      id: id || '',
       result: null,
       isLoading: true,
       isError: false,
     };
   },
-  [SearchActionTypes.RESULT]: (
-    state: SearchState,
+  [QuestionActionTypes.RESULT]: (
+    state: QuestionState,
     action: AnyAction
-  ): SearchState => ({
+  ): QuestionState => ({
     ...state,
     result: action.response,
     isLoading: false,
     isError: false,
   }),
-  [SearchActionTypes.ERROR]: (state: SearchState): SearchState => ({
+  [QuestionActionTypes.ERROR]: (state: QuestionState): QuestionState => ({
     ...state,
     result: state.result,
     isLoading: false,
     isError: true,
   }),
-  [SearchActionTypes.GET_MORE]: (state: SearchState): SearchState => ({
+  [QuestionActionTypes.GET_MORE]: (state: QuestionState): QuestionState => ({
     ...state,
     isLoading: !state.isError && (!state.result || state.result.hasMore),
   }),
-  [SearchActionTypes.SET_MORE]: (
-    state: SearchState,
+  [QuestionActionTypes.SET_MORE]: (
+    state: QuestionState,
     action: AnyAction
-  ): SearchState => ({
+  ): QuestionState => ({
     ...state,
     result: {
       ...action.response,

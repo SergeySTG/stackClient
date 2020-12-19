@@ -5,12 +5,11 @@ export const Cell = <T,>(props: ICellProps<T>): ReactElement<ICellProps<T>> => {
   const {
     column: { render, accessor },
     item,
+    dispatch,
   } = props;
 
   if (render) {
-    const Render = render;
-
-    return <Render item={item} />;
+    return render(item, dispatch);
   }
   if (!accessor) {
     throw new Error('You must set render or accessor props in columns');

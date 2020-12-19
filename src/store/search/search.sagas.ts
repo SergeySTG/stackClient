@@ -8,31 +8,19 @@ import { searchSelector } from 'store/search/search.selectors';
 import { SearchState } from 'store/search/search.initial-state';
 
 function* searchTitle(action: AnyAction): Generator {
+  const state = (yield select(searchSelector)) as SearchState;
   const { title } = action;
 
-  try {
-    const response = yield call(searchQuestions, {
-      intitle: title,
-    });
-    yield put(SearchActions.putSearchResult(response as Response<Question>));
-  } catch (e) {
-    yield put(SearchActions.putSearchError());
+  if (!state.result) {
+    try {
+      const response = yield call(searchQuestions, {
+        intitle: title,
+      });
+      yield put(SearchActions.putSearchResult(response as Response<Question>));
+    } catch (e) {
+      yield put(SearchActions.putSearchError());
+    }
   }
-  yield put;
-}
-
-function* searchTag(action: AnyAction): Generator {
-  const { tag } = action;
-
-  try {
-    const response = yield call(searchQuestions, {
-      tagged: tag,
-    });
-    yield put(SearchActions.putSearchResult(response as Response<Question>));
-  } catch (e) {
-    yield put(SearchActions.putSearchError());
-  }
-  yield put;
 }
 
 function* getMore(): Generator {
@@ -52,6 +40,5 @@ function* getMore(): Generator {
 
 export default function* watchData(): Generator {
   yield takeLatest(SearchActionTypes.SEARCH_BY_TITLE, searchTitle);
-  yield takeLatest(SearchActionTypes.SEARCH_BY_TAG, searchTag);
   yield takeLatest(SearchActionTypes.GET_MORE, getMore);
 }

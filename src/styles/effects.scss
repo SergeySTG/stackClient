@@ -1,0 +1,5 @@
+@import "variables";
+
+@mixin blur($size: 2px) {
+  backdrop-filter: blur($size);
+}

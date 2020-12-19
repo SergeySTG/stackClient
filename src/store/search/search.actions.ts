@@ -4,21 +4,16 @@ import { Response } from 'models/Response';
 
 export enum SearchActionTypes {
   SEARCH_BY_TITLE = 'SEARCH_TITLE',
-  SEARCH_BY_TAG = 'SEARCH_TAG',
-  GET_MORE = 'GET_MORE',
-  SET_MORE = 'SET_MORE',
-  ERROR = 'ERROR',
-  RESULT = 'RESULT',
+  CHANGE_SORTING = 'SEARCH_CHANGE_SORTING',
+  GET_MORE = 'SEARCH_GET_MORE',
+  SET_MORE = 'SEARCH_SET_MORE',
+  ERROR = 'SEARCH_ERROR',
+  RESULT = 'SEARCH_RESULT',
 }
 
 export const searchByTitle = (title: string): AnyAction => ({
   type: SearchActionTypes.SEARCH_BY_TITLE,
   title,
-});
-
-export const searchByTag = (tag: string): AnyAction => ({
-  type: SearchActionTypes.SEARCH_BY_TAG,
-  tag,
 });
 
 export const getMore = (): AnyAction => ({
@@ -41,7 +36,6 @@ export const putSearchError = (): AnyAction => ({
 
 export default {
   searchByTitle,
-  searchByTag,
   putSearchResult,
   putMoreResult,
   putSearchError,

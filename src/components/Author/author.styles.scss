@@ -1,0 +1,20 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.author {
+  @include hoverBackground(none, $lightBlue);
+  @include focusBackground(none, $lightBlue);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  border-radius: $border-radius;
+  background: none;
+  border: none;
+
+  img {
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+  }
+}
