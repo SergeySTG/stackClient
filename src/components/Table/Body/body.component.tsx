@@ -6,7 +6,7 @@ import { Preloader } from 'components/Preloader/preloader.component';
 export const Body = <T extends Item>(
   props: ITableBody<T>
 ): ReactElement<ITableBody<T>> => {
-  const { items, columns, isItemLoading } = props;
+  const { items, columns, isItemLoading, errorMessage } = props;
 
   return (
     <tbody>
@@ -26,6 +26,13 @@ export const Body = <T extends Item>(
             <div className="loader">
               <Preloader />
             </div>
+          </td>
+        </tr>
+      )}
+      {errorMessage && (
+        <tr>
+          <td className="error" colSpan={columns.length}>
+            {errorMessage}
           </td>
         </tr>
       )}

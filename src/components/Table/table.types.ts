@@ -15,4 +15,5 @@ export interface ITableProps<T extends Item> extends IClassNameComponent {
   maxHeight?: number;
   onLoadMore?: () => void;
   isLoading?: boolean;
+  errorMessage?: string;
 }

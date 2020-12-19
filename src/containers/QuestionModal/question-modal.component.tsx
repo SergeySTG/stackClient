@@ -1,15 +1,15 @@
-import React, { FC, ReactElement, useEffect } from 'react';
+import React, { FC, ReactElement } from 'react';
 
 import './question-modal.styles.scss';
 import { Button } from 'components/Button/button.component';
 import {
   useCloseHandler,
-  useLoadMore,
-  useModalState,
+  useFetchData,
 } from 'containers/QuestionModal/question-modal.hooks';
 import { QuestionTable } from 'containers/QuestionTable/question-table.component';
 import { QuestionModalTypes } from 'store/questions-modal/questions-modal.initial-state';
-import { useLocation } from 'react-router-dom';
+import { useQuestionModalState } from 'store/questions-modal/questions-modal.selectors';
+import { COMMON_ERROR } from 'constants/errorMessages';
 
 const SearchType: { [key in QuestionModalTypes]: string } = {
   [QuestionModalTypes.byTag]: 'by tag',
@@ -17,13 +17,9 @@ const SearchType: { [key in QuestionModalTypes]: string } = {
 };
 
 export const QuestionsModal: FC = (): ReactElement | null => {
-  const state = useModalState();
-  const location = useLocation();
+  const state = useQuestionModalState();
   const closeHandler = useCloseHandler();
-  const loadMoreHandler = useLoadMore();
-  useEffect(() => {
-    closeHandler();
-  }, [location, closeHandler]);
+  const loadMoreHandler = useFetchData();
 
   if (!state.isOpen) {
     return null;
@@ -31,7 +27,7 @@ export const QuestionsModal: FC = (): ReactElement | null => {
   const {
     search,
     searchType,
-    data: { result, isLoading },
+    data: { result, isLoading, isError },
   } = state;
 
   return (
@@ -52,6 +48,7 @@ export const QuestionsModal: FC = (): ReactElement | null => {
           isLoading={isLoading}
           maxHeight={600}
           onLoadMore={loadMoreHandler}
+          errorMessage={isError ? COMMON_ERROR : ''}
         />
       </div>
     </div>

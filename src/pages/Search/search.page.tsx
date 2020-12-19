@@ -1,26 +1,14 @@
-import React, { FC, ReactElement, useCallback, useEffect } from 'react';
+import React, { FC, ReactElement } from 'react';
 import 'pages/Search/search.page.scss';
-import { useSearchParams } from 'hooks/search-url';
-import { SearchParams } from 'constants/routes';
-import { useDispatch, useSelector } from 'react-redux';
-import { searchSelector } from 'store/search/search.selectors';
-import { getMore, searchByTitle } from 'store/search/search.actions';
+import { useSearchState } from 'store/search/search.selectors';
 import { QuestionTable } from 'containers/QuestionTable/question-table.component';
+import { COMMON_ERROR } from 'constants/errorMessages';
+import { useFetchData, useSearchTitle } from 'pages/Search/search.hooks';
 
 export const SearchPage: FC = (): ReactElement => {
-  const [searchTitle] = useSearchParams([SearchParams.title]);
-  const { result, isLoading } = useSelector(searchSelector);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (searchTitle) {
-      dispatch(searchByTitle(searchTitle));
-    }
-  }, [dispatch, searchTitle]);
-
-  const onLoadMore = useCallback(() => {
-    dispatch(getMore());
-  }, [dispatch]);
+  const searchTitle = useSearchTitle();
+  const { result, isLoading, isError } = useSearchState();
+  const onLoadMore = useFetchData();
 
   return (
     <div className="search-page">
@@ -35,6 +23,7 @@ export const SearchPage: FC = (): ReactElement => {
         items={result?.items}
         onLoadMore={onLoadMore}
         isLoading={isLoading}
+        errorMessage={isError ? COMMON_ERROR : ''}
       />
     </div>
   );

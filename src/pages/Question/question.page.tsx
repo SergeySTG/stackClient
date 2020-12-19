@@ -1,27 +1,14 @@
-import React, { FC, ReactElement, useCallback, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { questionSelector } from 'store/question/question.selectors';
-import { getMore, searchById } from 'store/question/question.actions';
+import React, { FC, ReactElement } from 'react';
 import { AnswerTable } from 'containers/AnswerTable/answer-table.component';
 
 import './question.styles.scss';
+import { COMMON_ERROR } from 'constants/errorMessages';
+import { useFetchData } from 'pages/Question/question.hooks';
+import { useQuestionState } from 'store/question/question.selectors';
 
 export const QuestionPage: FC = (): ReactElement => {
-  const params = useParams<{ id: string }>();
-  const id = params?.id || '';
-  const { result, isLoading } = useSelector(questionSelector);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (id) {
-      dispatch(searchById(id));
-    }
-  }, [dispatch, id]);
-
-  const onLoadMore = useCallback(() => {
-    dispatch(getMore());
-  }, [dispatch]);
+  const { result, isLoading, isError } = useQuestionState();
+  const onLoadMore = useFetchData();
 
   return (
     <div className="question-page">
@@ -32,6 +19,7 @@ export const QuestionPage: FC = (): ReactElement => {
         items={result?.items}
         onLoadMore={onLoadMore}
         isLoading={isLoading}
+        errorMessage={isError ? COMMON_ERROR : ''}
       />
     </div>
   );

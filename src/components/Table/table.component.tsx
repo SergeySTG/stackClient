@@ -16,11 +16,12 @@ export const Table = <T extends Item>(
     className = '',
     maxHeight,
     isLoading,
+    errorMessage,
     onLoadMore,
   } = props;
   const tableClass = `table-custom ${className} ${
     maxHeight ? 'fixed-size' : ''
-  }`;
+  } ${errorMessage ? 'error' : ''}`;
   const { ref, isStart, onScroll } = useScrollHandler(maxHeight, onLoadMore);
 
   return (
@@ -34,7 +35,12 @@ export const Table = <T extends Item>(
     >
       <table cellSpacing={0}>
         <Headers<T> columns={columns} showShadow={!isStart} />
-        <Body<T> items={items} columns={columns} isItemLoading={isLoading} />
+        <Body<T>
+          items={items}
+          columns={columns}
+          isItemLoading={isLoading}
+          errorMessage={errorMessage}
+        />
       </table>
     </div>
   );

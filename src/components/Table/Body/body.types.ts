@@ -17,4 +17,5 @@ export interface ITableBody<T> {
   items?: T[];
   columns: ITableColumn<T>[];
   isItemLoading?: boolean;
+  errorMessage?: string;
 }
