@@ -22,11 +22,27 @@ $header-height: 40px;
       top: 0;
       height: $header-height;
       line-height: 100%;
+
+      &.shadow {
+        @include shadow();
+        top: $header-height;
+        height: 1px;
+      }
+
+      &.sort-group {
+        top: 0;
+      }
     }
-    th.shadow {
-      @include shadow();
-      top: $header-height;
-      height: 0;
+
+    .with-sorting {
+      th:not(.sort-group) {
+        top: $header-height;
+
+        &.shadow {
+          @include shadow();
+          top: 2 * $header-height;
+        }
+      }
     }
 
     td {

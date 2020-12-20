@@ -28,6 +28,27 @@ const reducers = {
       },
     };
   },
+  [QuestionModalActionTypes.SORT]: (
+    state: QuestionModalState,
+    action: AnyAction
+  ): QuestionModalState => {
+    const { sort, order } = action;
+
+    if (!state.isOpen) {
+      return state;
+    }
+
+    return {
+      ...state,
+      data: {
+        isLoading: true,
+        isError: false,
+        result: null,
+        sort,
+        order,
+      },
+    };
+  },
   [QuestionModalActionTypes.CLOSE]: (): QuestionModalState => {
     return initialState;
   },
@@ -37,6 +58,7 @@ const reducers = {
   ): QuestionModalState => ({
     ...state,
     data: {
+      ...state.data,
       result: action.response,
       isLoading: false,
       isError: false,
@@ -47,6 +69,7 @@ const reducers = {
   ): QuestionModalState => ({
     ...state,
     data: {
+      ...state.data,
       result: state.data.result,
       isLoading: false,
       isError: true,
@@ -69,6 +92,7 @@ const reducers = {
   ): QuestionModalState => ({
     ...state,
     data: {
+      ...state.data,
       result: {
         ...action.response,
         items: [...(state.data.result?.items || []), ...action.response.items],

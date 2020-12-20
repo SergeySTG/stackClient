@@ -15,16 +15,21 @@ import { getQuestionByUser } from 'api/user';
 import { searchQuestions } from 'api/search/search';
 
 function* searchByAuthor(action: AnyAction): Generator {
-  const { search } = action;
+  const { search, sort, order } = action;
 
-  return yield call(getQuestionByUser, search);
+  return yield call(getQuestionByUser, search, {
+    sort,
+    order,
+  });
 }
 
 function* searchByTag(action: AnyAction): Generator {
-  const { search } = action;
+  const { search, sort, order } = action;
 
   return yield call(searchQuestions, {
     tagged: search,
+    sort,
+    order,
   });
 }
 
@@ -36,10 +41,13 @@ const SearchSagas: {
 };
 
 function* open(action: AnyAction): Generator {
-  const state = (yield select(questionModalSelector)) as QuestionModalState;
-  const { searchType } = action;
+  const {
+    searchType,
+    search,
+    data: { result },
+  } = (yield select(questionModalSelector)) as QuestionModalState;
 
-  if (!state.data.result && state.searchType && state.search) {
+  if (!result && searchType && search) {
     try {
       const saga = SearchSagas[searchType as QuestionModalTypes];
       const response = yield call(saga, action);
@@ -48,6 +56,17 @@ function* open(action: AnyAction): Generator {
       yield put(QuestionModalActions.putError());
     }
   }
+}
+
+function* setSort(action: AnyAction): Generator {
+  const { search } = (yield select(
+    questionModalSelector
+  )) as QuestionModalState;
+
+  yield call(open, {
+    ...action,
+    search,
+  });
 }
 
 function* getMore(): Generator {
@@ -69,5 +88,6 @@ function* getMore(): Generator {
 
 export default function* watchData(): Generator {
   yield takeLatest(QuestionModalActionTypes.OPEN, open);
+  yield takeLatest(QuestionModalActionTypes.SORT, setSort);
   yield takeLatest(QuestionModalActionTypes.GET_MORE, getMore);
 }

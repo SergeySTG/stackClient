@@ -1,8 +1,11 @@
 import { useDispatch } from 'react-redux';
-import { useSearchParams } from 'hooks/search-url';
-import { SearchParams } from 'constants/routes';
-import { useCallback, useEffect } from 'react';
-import { getMore, searchByTitle } from 'store/search/search.actions';
+import { useSearchParams, useSearchSortParams } from 'hooks/search-url';
+import { SearchParams, SortParams } from 'constants/query-params';
+import { useCallback, useEffect, useMemo } from 'react';
+import { getMore, search } from 'store/search/search.actions';
+import { ISortTable } from 'components/Table/table.types';
+import { OrderAPI, SortAPI } from 'interfaces/api';
+import { useHistorySearch } from 'hooks/history';
 
 export const useSearchTitle = (): string | undefined => {
   const [searchTitle] = useSearchParams([SearchParams.title]);
@@ -12,15 +15,35 @@ export const useSearchTitle = (): string | undefined => {
 
 export const useFetchData = (): (() => void) => {
   const searchTitle = useSearchTitle();
+  const { sort, order } = useSearchSortParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (searchTitle) {
-      dispatch(searchByTitle(searchTitle));
+      dispatch(search(searchTitle, sort, order));
     }
-  }, [dispatch, searchTitle]);
+  }, [dispatch, searchTitle, sort, order]);
 
   return useCallback(() => {
     dispatch(getMore());
   }, [dispatch]);
+};
+
+export const useTableSort = (): ISortTable => {
+  const { sort, order } = useSearchSortParams();
+  const goTo = useHistorySearch();
+
+  return useMemo(
+    () => ({
+      sort,
+      order,
+      onChange: (newSort: SortAPI, newOrder: OrderAPI): void => {
+        goTo({
+          [SortParams.sort]: newSort,
+          [SortParams.order]: newOrder,
+        });
+      },
+    }),
+    [sort, order, goTo]
+  );
 };

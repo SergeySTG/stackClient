@@ -1,5 +1,5 @@
 import { IFilterAPI } from 'interfaces/api';
-import { DefaultFilterAPI } from 'constants/filters';
+import { DefaultFilterAPI, DefaultOrder, DefaultSort } from 'constants/filters';
 
 /**
  * Generate url search string from object
@@ -22,9 +22,13 @@ const filterToString = (filter: { [key: string]: unknown }): string => {
 };
 
 const getFetchFilter = (filter: Partial<IFilterAPI>): string => {
+  const { sort = DefaultSort, order = DefaultOrder } = filter;
+
   return filterToString({
     ...DefaultFilterAPI,
     ...filter,
+    sort,
+    order,
   });
 };
 

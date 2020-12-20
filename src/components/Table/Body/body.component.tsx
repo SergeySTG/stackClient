@@ -29,13 +29,13 @@ export const Body = <T extends Item>(
           </td>
         </tr>
       )}
-      {errorMessage && (
+      {errorMessage ? (
         <tr>
           <td className="error" colSpan={columns.length}>
             {errorMessage}
           </td>
         </tr>
-      )}
+      ) : null}
     </tbody>
   );
 };

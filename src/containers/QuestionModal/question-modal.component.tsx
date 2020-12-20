@@ -5,6 +5,7 @@ import { Button } from 'components/Button/button.component';
 import {
   useCloseHandler,
   useFetchData,
+  useTableSort,
 } from 'containers/QuestionModal/question-modal.hooks';
 import { QuestionTable } from 'containers/QuestionTable/question-table.component';
 import { QuestionModalTypes } from 'store/questions-modal/questions-modal.initial-state';
@@ -20,6 +21,7 @@ export const QuestionsModal: FC = (): ReactElement | null => {
   const state = useQuestionModalState();
   const closeHandler = useCloseHandler();
   const loadMoreHandler = useFetchData();
+  const sortTable = useTableSort();
 
   if (!state.isOpen) {
     return null;
@@ -49,6 +51,7 @@ export const QuestionsModal: FC = (): ReactElement | null => {
           maxHeight={600}
           onLoadMore={loadMoreHandler}
           errorMessage={isError ? COMMON_ERROR : ''}
+          sort={sortTable}
         />
       </div>
     </div>

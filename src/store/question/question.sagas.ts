@@ -11,11 +11,14 @@ import { getAnswersByQuestion } from 'api/question';
 
 function* search(action: AnyAction): Generator {
   const state = (yield select(questionSelector)) as QuestionState;
-  const { id } = action;
+  const { id, sort, order } = action;
 
   if (!state.result) {
     try {
-      const response = yield call(getAnswersByQuestion, id);
+      const response = yield call(getAnswersByQuestion, id, {
+        sort,
+        order,
+      });
       yield put(QuestionActions.putResult(response as Response<Question>));
     } catch (e) {
       yield put(QuestionActions.putError());

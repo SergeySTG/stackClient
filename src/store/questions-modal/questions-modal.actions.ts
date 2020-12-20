@@ -2,9 +2,11 @@ import { AnyAction } from 'redux';
 import { Question } from 'models/Question';
 import { Response } from 'models/Response';
 import { QuestionModalTypes } from 'store/questions-modal/questions-modal.initial-state';
+import { OrderAPI, SortAPI } from 'interfaces/api';
 
 export enum QuestionModalActionTypes {
   OPEN = 'QUESTION_MODAL_OPEN',
+  SORT = 'QUESTION_MODAL_SORT',
   CLOSE = 'QUESTION_MODAL_CLOSE',
   RESULT = 'QUESTION_MODAL_RESULT',
   GET_MORE = 'QUESTION_MODAL_GET_MORE',
@@ -19,6 +21,12 @@ export const open = (
   type: QuestionModalActionTypes.OPEN,
   searchType,
   search,
+});
+
+export const setSort = (sort: SortAPI, order: OrderAPI): AnyAction => ({
+  type: QuestionModalActionTypes.SORT,
+  sort,
+  order,
 });
 
 export const close = (): AnyAction => ({
@@ -45,6 +53,7 @@ export const putError = (): AnyAction => ({
 
 export const QuestionModalActions = {
   open,
+  setSort,
   close,
   putResult,
   putMoreResult,

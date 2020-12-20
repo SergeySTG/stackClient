@@ -3,12 +3,17 @@ import 'pages/Search/search.page.scss';
 import { useSearchState } from 'store/search/search.selectors';
 import { QuestionTable } from 'containers/QuestionTable/question-table.component';
 import { COMMON_ERROR } from 'constants/errorMessages';
-import { useFetchData, useSearchTitle } from 'pages/Search/search.hooks';
+import {
+  useFetchData,
+  useSearchTitle,
+  useTableSort,
+} from 'pages/Search/search.hooks';
 
 export const SearchPage: FC = (): ReactElement => {
   const searchTitle = useSearchTitle();
   const { result, isLoading, isError } = useSearchState();
   const onLoadMore = useFetchData();
+  const sortTable = useTableSort();
 
   return (
     <div className="search-page">
@@ -24,6 +29,7 @@ export const SearchPage: FC = (): ReactElement => {
         onLoadMore={onLoadMore}
         isLoading={isLoading}
         errorMessage={isError ? COMMON_ERROR : ''}
+        sort={sortTable}
       />
     </div>
   );

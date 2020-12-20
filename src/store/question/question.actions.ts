@@ -1,6 +1,7 @@
 import { AnyAction } from 'redux';
 import { Question } from 'models/Question';
 import { Response } from 'models/Response';
+import { OrderAPI, SortAPI } from 'interfaces/api';
 
 export enum QuestionActionTypes {
   SEARCH = 'QUESTION_SEARCH',
@@ -11,9 +12,15 @@ export enum QuestionActionTypes {
   RESULT = 'QUESTION_RESULT',
 }
 
-export const searchById = (id: string): AnyAction => ({
+export const searchById = (
+  id: string,
+  sort?: SortAPI,
+  order?: OrderAPI
+): AnyAction => ({
   type: QuestionActionTypes.SEARCH,
   id,
+  sort,
+  order,
 });
 
 export const getMore = (): AnyAction => ({

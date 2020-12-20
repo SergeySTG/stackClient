@@ -9,12 +9,14 @@ import { SearchState } from 'store/search/search.initial-state';
 
 function* searchTitle(action: AnyAction): Generator {
   const state = (yield select(searchSelector)) as SearchState;
-  const { title } = action;
+  const { title, sort, order } = action;
 
   if (!state.result) {
     try {
       const response = yield call(searchQuestions, {
         intitle: title,
+        sort,
+        order,
       });
       yield put(SearchActions.putSearchResult(response as Response<Question>));
     } catch (e) {
@@ -39,6 +41,6 @@ function* getMore(): Generator {
 }
 
 export default function* watchData(): Generator {
-  yield takeLatest(SearchActionTypes.SEARCH_BY_TITLE, searchTitle);
+  yield takeLatest(SearchActionTypes.SEARCH, searchTitle);
   yield takeLatest(SearchActionTypes.GET_MORE, getMore);
 }

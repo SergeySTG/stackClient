@@ -3,12 +3,13 @@ import { AnswerTable } from 'containers/AnswerTable/answer-table.component';
 
 import './question.styles.scss';
 import { COMMON_ERROR } from 'constants/errorMessages';
-import { useFetchData } from 'pages/Question/question.hooks';
+import { useFetchData, useTableSort } from 'pages/Question/question.hooks';
 import { useQuestionState } from 'store/question/question.selectors';
 
 export const QuestionPage: FC = (): ReactElement => {
   const { result, isLoading, isError } = useQuestionState();
   const onLoadMore = useFetchData();
+  const sortTable = useTableSort();
 
   return (
     <div className="question-page">
@@ -20,6 +21,7 @@ export const QuestionPage: FC = (): ReactElement => {
         onLoadMore={onLoadMore}
         isLoading={isLoading}
         errorMessage={isError ? COMMON_ERROR : ''}
+        sort={sortTable}
       />
     </div>
   );

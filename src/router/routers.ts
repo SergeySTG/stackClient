@@ -10,7 +10,7 @@ export const Routers: IRoute[] = [
     page: MainPage,
   },
   {
-    path: Routes.search.base,
+    path: Routes.search,
     page: SearchPage,
   },
   {

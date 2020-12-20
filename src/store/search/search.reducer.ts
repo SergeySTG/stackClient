@@ -4,18 +4,25 @@ import { SearchActionTypes } from 'store/search/search.actions';
 import { AnyAction } from 'redux';
 
 const reducers = {
-  [SearchActionTypes.SEARCH_BY_TITLE]: (
+  [SearchActionTypes.SEARCH]: (
     state: SearchState,
     action: AnyAction
   ): SearchState => {
-    const { title } = action;
+    const { title, sort, order } = action;
 
-    if (title && title === state.title) {
+    if (
+      title &&
+      title === state.title &&
+      sort === state.sort &&
+      order === state.order
+    ) {
       return state;
     }
 
     return {
       title: title || '',
+      sort,
+      order,
       result: null,
       isLoading: true,
       isError: false,

@@ -11,14 +11,16 @@ const reducers = {
     state: QuestionState,
     action: AnyAction
   ): QuestionState => {
-    const { id } = action;
+    const { id, sort, order } = action;
 
-    if (id && id === state.id) {
+    if (id && id === state.id && sort === state.sort && order === state.order) {
       return state;
     }
 
     return {
       id: id || '',
+      sort,
+      order,
       result: null,
       isLoading: true,
       isError: false,

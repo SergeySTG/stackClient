@@ -18,6 +18,7 @@ export const Table = <T extends Item>(
     isLoading,
     errorMessage,
     onLoadMore,
+    sort,
   } = props;
   const tableClass = `table-custom ${className} ${
     maxHeight ? 'fixed-size' : ''
@@ -33,8 +34,8 @@ export const Table = <T extends Item>(
       }}
       onScroll={onScroll}
     >
-      <table cellSpacing={0}>
-        <Headers<T> columns={columns} showShadow={!isStart} />
+      <table cellSpacing={0} cellPadding={0}>
+        <Headers<T> columns={columns} showShadow={!isStart} sort={sort} />
         <Body<T>
           items={items}
           columns={columns}

@@ -1,19 +1,25 @@
 import { AnyAction } from 'redux';
 import { Question } from 'models/Question';
 import { Response } from 'models/Response';
+import { OrderAPI, SortAPI } from 'interfaces/api';
 
 export enum SearchActionTypes {
-  SEARCH_BY_TITLE = 'SEARCH_TITLE',
-  CHANGE_SORTING = 'SEARCH_CHANGE_SORTING',
+  SEARCH = 'SEARCH_TITLE',
   GET_MORE = 'SEARCH_GET_MORE',
   SET_MORE = 'SEARCH_SET_MORE',
   ERROR = 'SEARCH_ERROR',
   RESULT = 'SEARCH_RESULT',
 }
 
-export const searchByTitle = (title: string): AnyAction => ({
-  type: SearchActionTypes.SEARCH_BY_TITLE,
+export const search = (
+  title: string,
+  sort?: SortAPI,
+  order?: OrderAPI
+): AnyAction => ({
+  type: SearchActionTypes.SEARCH,
   title,
+  sort,
+  order,
 });
 
 export const getMore = (): AnyAction => ({
@@ -35,7 +41,7 @@ export const putSearchError = (): AnyAction => ({
 });
 
 export default {
-  searchByTitle,
+  searchByTitle: search,
   putSearchResult,
   putMoreResult,
   putSearchError,

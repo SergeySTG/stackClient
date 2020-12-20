@@ -1,0 +1,14 @@
+@import 'styles/mixins';
+@import 'styles/variables';
+
+.sort-select {
+  span {
+    @include header-text;
+  }
+  select {
+    @include border;
+    @include normal-text;
+    padding: 3px 10px;
+    margin-left: 10px;
+  }
+}

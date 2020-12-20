@@ -1,12 +1,20 @@
 import React, { ReactElement } from 'react';
 import { IHeadersProps } from 'components/Table/Headers/headers.types';
 import { ITableColumn } from 'components/Table/table.types';
+import { SortSelect } from 'components/SortSelect/sort-select.component';
 
 export const Headers = <T,>(props: IHeadersProps<T>): ReactElement<T> => {
-  const { columns, showShadow } = props;
+  const { columns, showShadow, sort } = props;
 
   return (
-    <thead>
+    <thead className={sort ? 'with-sorting' : ''}>
+      {sort && (
+        <tr>
+          <th className="sort-group" colSpan={columns.length}>
+            <SortSelect {...sort} />
+          </th>
+        </tr>
+      )}
       <tr>
         {columns.map(
           (column: ITableColumn<T>, index: number): ReactElement => (

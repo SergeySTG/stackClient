@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Routes } from 'constants/routes';
 import { IInputProps } from 'components/Input/input.types';
+import { QueryStrings } from 'constants/query-params';
 
 export const useSubmitBtn = (
   initialValue: string,
@@ -30,7 +31,7 @@ export const useSubmitBtn = (
       if (!title) {
         setError(errorMessage);
       } else {
-        history.push(Routes.search.getSearchTitle(title));
+        history.push(`${Routes.search}?${QueryStrings.search(title)}`);
       }
     },
   };
